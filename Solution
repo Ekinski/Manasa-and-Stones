@@ -1,0 +1,52 @@
+using System.CodeDom.Compiler;
+using System.Collections.Generic;
+using System.Collections;
+using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.Serialization;
+using System.Text.RegularExpressions;
+using System.Text;
+using System;
+
+class Solution {
+
+    // Complete the stones function below.
+    static int[] stones(int n, int a, int b) {
+        List<int> list = new List<int>();
+        
+        for (int count = n/2 ; count < n ; count++){
+            list.Add((a * count) + (b *((n -1) - count)));
+            list.Add((b * count) + (a *((n -1) - count)));
+        }
+        
+        var items = list.Distinct();
+        int[] answer = items.ToArray();
+        Array.Sort(answer);
+        return answer;
+    }
+
+    static void Main(string[] args) {
+        TextWriter textWriter = new StreamWriter(@System.Environment.GetEnvironmentVariable("OUTPUT_PATH"), true);
+
+        int T = Convert.ToInt32(Console.ReadLine());
+
+        for (int TItr = 0; TItr < T; TItr++) {
+            int n = Convert.ToInt32(Console.ReadLine());
+
+            int a = Convert.ToInt32(Console.ReadLine());
+
+            int b = Convert.ToInt32(Console.ReadLine());
+
+            int[] result = stones(n, a, b);
+
+            textWriter.WriteLine(string.Join(" ", result));
+        }
+
+        textWriter.Flush();
+        textWriter.Close();
+    }
+}
